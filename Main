@@ -1,0 +1,94 @@
+#include <iostream>
+#include <cmath>
+#include <ctime>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+
+	srand(time(0));
+	const int minValue{ 1 };
+	const int maxValue{ 3 };
+	bool play{ true };
+	string input{};
+	int playAmount{};
+	while (play == true) {
+		while (input != "true" or input != "false") {
+			cout << "type true or false to play: ";
+			cin >> input;
+			transform(input.begin(), input.end(), input.begin(), tolower);
+			if (input == "true" or input == "false") {
+				break;
+			}
+		}
+		if (input == "true") {
+			play = true;
+		}
+		else {
+			play = false;
+			return 0;
+		}
+		int playerWin{};
+		int computerWin{};
+		cout << "You will play out of 3" << endl;
+		for (int i = 0; i < 3; i++) {
+			if (playerWin == 2) {
+				cout << "You win the game. Do you want to play again?" << endl;
+				break;
+			}
+			else if (computerWin == 2) {
+				cout << "The computer wins the game. Do you want to play again?" << endl;
+				break;
+			}
+			int randomNumber = rand() % (maxValue - minValue + 1) + minValue;
+			while (input != "rock" or input != "paper" or input != "scissor") {
+				cout << "Type rock, paper or scissor: ";
+				cin >> input;
+				transform(input.begin(), input.end(), input.begin(), tolower);
+				if (input == "rock" or input == "paper" or input == "scissor") {
+					break;
+				}
+			}
+			if (input == "rock" and randomNumber == 1) {
+				cout << "Draw" << endl;
+				i--;
+			}
+			else if (input == "rock" and randomNumber == 2) {
+				cout << "You loose" << endl;
+				computerWin++;
+			}
+			else if (input == "rock" and randomNumber == 3) {
+				cout << "You win" << endl;
+				playerWin++;
+			}
+			else if (input == "paper" and randomNumber == 1) {
+				cout << "You win" << endl;
+				playerWin++;
+			}
+			else if (input == "paper" and randomNumber == 2) {
+				cout << "Draw" << endl;
+				i--;
+			}
+			else if (input == "paper" and randomNumber == 3) {
+				cout << "You loose" << endl;
+				computerWin++;
+			}
+			else if (input == "scissor" and randomNumber == 1) {
+				cout << "You loose" << endl;
+				computerWin++;
+			}
+			else if (input == "scissor" and randomNumber == 2) {
+				cout << "You win" << endl;
+				playerWin++;
+			}
+			else if (input == "scissor" and randomNumber == 3) {
+				cout << "Draw" << endl;
+				i--;
+			}
+			input = {};
+		}
+	}
+	return 0;
+}
